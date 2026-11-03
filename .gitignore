@@ -22,6 +22,5 @@ skills-lock.json
 **/.thumbnails/
 **/.waveform-cache/
 
-# Codex packaging — excluded from the Claude-only initial release
-.codex-plugin/
-CODEX_PLUGIN_FOLLOWUPS.md
+.codesk
+.fireside/

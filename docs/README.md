@@ -15,13 +15,13 @@ open http://localhost:8000
 node ../scripts/check-docs.mjs
 ```
 
-This verifies local docs links and media paths, plus the gallery count copy.
+This verifies local docs links and media paths.
 
 ## Deploy (GitHub Pages)
 
 Fully self-contained — no build step. In the repo's **Settings → Pages**, set the source to **Deploy from a branch**, branch `main`, folder **`/docs`**.
 
-The gallery videos ship committed: each demo shown (`examples/horse-tinder/`, `examples/fish-flight-school/`, `examples/taxi-for-taxis/`) includes its `brag.mp4`, a `brag.jpg` poster, and a `site.jpg` thumbnail. Heavy composition sources (`brag-output-*/`) are git-ignored.
+The gallery videos ship committed, in two sets. The /brag-slim set is `examples/horse-tinder/`, `examples/fish-flight-school/` and `examples/taxi-for-taxis/`; the /brag --full set is `examples/full/<slug>/`, which keeps the original version of each site next to the video made from it. Each demo includes its `brag.mp4`, a `brag.jpg` poster, and a `site.jpg` thumbnail. Heavy composition sources (`brag-output-*/`) are git-ignored.
 
 ## Adding / updating a gallery example
 
@@ -35,7 +35,7 @@ The gallery videos ship committed: each demo shown (`examples/horse-tinder/`, `e
    cd docs/examples/<slug>
    ffmpeg -y -i brag.mp4 -i brag.jpg \
      -filter_complex "[0:v][1:v]overlay=0:0:enable='eq(n,0)'[v]" \
-     -map "[v]" -map 0:a? -c:v libx264 -crf 18 -preset slow -pix_fmt yuv420p \
+     -map "[v]" -map "0:a?" -c:v libx264 -crf 18 -preset slow -pix_fmt yuv420p \
      -c:a copy -movflags +faststart brag.poster.mp4 && mv brag.poster.mp4 brag.mp4
    ```
 2. Add a card in `index.html` pointing at those paths.
